@@ -1,11 +1,12 @@
-# 📚 Aula de Java Básico - Noções Fundamentais
+# 📚 Guia Completo - Java, Angular & Spring Boot
 
-Este guia contém exemplos práticos de todos os conceitos básicos de Java que você precisa saber.
+Este guia contém exemplos práticos de conceitos básicos de Java e comandos úteis para Angular e Spring Boot.
 
 ---
 
 ## 📋 Índice
 
+### Java Básico
 1. [Tipos Primitivos](#1-tipos-primitivos)
 2. [Tipos de Referência (Objetos)](#2-tipos-de-referência-objetos)
 3. [Operadores](#3-operadores)
@@ -17,7 +18,16 @@ Este guia contém exemplos práticos de todos os conceitos básicos de Java que 
 9. [Métodos/Funções](#9-métodosfunções)
 10. [Null Safety](#10-null-safety)
 11. [Classes e Objetos](#11-classes-e-objetos)
-12. [Resumo Rápido](#12-resumo-rápido)
+12. [Resumo Rápido Java](#12-resumo-rápido-java)
+
+### Comandos de Desenvolvimento
+13. [Angular](#angular)
+14. [Spring Boot](#spring-boot)
+15. [Fluxo de Desenvolvimento](#fluxo-típico-de-desenvolvimento)
+
+---
+
+# 🔷 JAVA BÁSICO
 
 ---
 
@@ -600,7 +610,7 @@ System.out.println(p3);  // Pessoa{nome='Pedro', idade=35, email='pedro@email.co
 
 ---
 
-## 12. Resumo Rápido
+## 12. Resumo Rápido Java
 
 ### Tipos Primitivos
 
@@ -663,3 +673,267 @@ public static tipo nome(parametros) {
 - **Métodos**: comportamentos
 
 ---
+
+# 🔶 COMANDOS DE DESENVOLVIMENTO
+
+---
+
+## Angular
+
+### Criar Projeto
+```bash
+# Criar novo projeto Angular
+ng new nome-do-projeto
+
+# Com opções específicas
+ng new nome-do-projeto --style=scss --routing --strict
+```
+
+### Comandos do Dia a Dia
+```bash
+# Rodar o projeto (dev server)
+ng serve
+ng serve --open              # Abre o browser automaticamente
+ng serve --port 4200         # Especificar porta
+
+# Gerar componentes
+ng generate component nome          # ou: ng g c nome
+ng generate component pasta/nome    # dentro de uma pasta
+
+# Gerar outros artefatos
+ng g service nome           # Service
+ng g directive nome         # Diretiva
+ng g pipe nome              # Pipe
+ng g guard nome             # Guard
+ng g interface nome         # Interface
+ng g enum nome              # Enum
+ng g class nome             # Classe
+
+# Build
+ng build                    # Build de desenvolvimento
+ng build --configuration=production  # Build de produção
+
+# Testes
+ng test                     # Testes unitários (Karma)
+ng e2e                      # Testes end-to-end
+
+# Lint
+ng lint
+
+# Atualizar Angular
+ng update @angular/core @angular/cli
+```
+
+### NPM Úteis
+```bash
+npm install pacote          # Instalar dependência
+npm install pacote -D       # Instalar como devDependency
+npm uninstall pacote        # Remover dependência
+npm outdated                # Ver pacotes desatualizados
+npm update                  # Atualizar pacotes
+```
+
+---
+
+## Spring Boot
+
+### Criar Projeto
+
+1. **Via Spring Initializr (Recomendado)**
+   - Acesse: https://start.spring.io
+   - Configure:
+     - Project: Maven
+     - Language: Java
+     - Spring Boot: 3.x (última estável)
+     - Packaging: Jar
+     - Java: 21
+   - Adicione dependências e clique em "Generate"
+
+2. **Via CLI (se tiver o Spring CLI instalado)**
+```bash
+spring init --dependencies=web,data-jpa,security,lombok,h2 nome-do-projeto
+```
+
+3. **Via VSCODE ctrl+shift+p > Spring Initializr: Generate a Maven Project**
+
+
+### Setup Inicial do Projeto
+
+1. **Extraia o zip do Spring Initializr**
+2. **Estrutura de pastas recomendada:**
+```
+src/main/java/com/empresa/projeto/
+├── config/         # Configurações
+├── controller/     # Endpoints REST
+├── service/        # Lógica de negócio
+├── repository/     # Acesso ao banco
+├── entity/         # Entidades JPA
+├── dto/            # Data Transfer Objects
+├── exception/      # Exceções customizadas
+├── enums/          # Enumerações
+├── mapper/         # Conversões Entity <-> DTO
+└── util/           # Utilitários
+```
+
+3. **Dependências comuns (pom.xml):**
+```xml
+<dependencies>
+    <!-- Web -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- JPA + Banco de Dados -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <!-- H2 (desenvolvimento) -->
+    <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+
+    <!-- PostgreSQL (produção) -->
+    <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+
+    <!-- Security -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <!-- Lombok (menos boilerplate) -->
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <optional>true</optional>
+    </dependency>
+
+    <!-- DevTools (hot reload) -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <scope>runtime</scope>
+        <optional>true</optional>
+    </dependency>
+</dependencies>
+```
+
+### Comandos Maven do Dia a Dia
+
+```bash
+# Rodar o projeto
+./mvnw spring-boot:run              # Linux/Mac
+.\mvnw.cmd spring-boot:run          # Windows
+
+# Compilar
+./mvnw compile
+
+# Rodar testes
+./mvnw test
+
+# Empacotar (gerar .jar)
+./mvnw package
+./mvnw package -DskipTests          # Pular testes
+
+# Limpar e compilar
+./mvnw clean install
+
+# Ver árvore de dependências
+./mvnw dependency:tree
+```
+
+### application.properties Básico
+
+```properties
+# Servidor
+server.port=8080
+
+# H2 Database (desenvolvimento)
+spring.datasource.url=jdbc:h2:mem:meubanco
+spring.datasource.username=sa
+spring.datasource.password=
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+# JPA
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.jpa.show-sql=true
+
+# Segurança (dev)
+spring.security.user.name=admin
+spring.security.user.password=admin
+```
+
+---
+
+## Fluxo Típico de Desenvolvimento
+
+### Angular
+```
+1. ng g c components/meu-componente    # Criar componente
+2. Editar .ts, .html, .scss            # Implementar
+3. ng serve                            # Testar no browser
+4. ng test                             # Rodar testes
+5. ng build --prod                     # Build para deploy
+```
+
+### Spring Boot
+```
+1. Criar Entity em /entity
+2. Criar Repository em /repository (interface extends JpaRepository)
+3. Criar Service em /service (lógica de negócio)
+4. Criar Controller em /controller (endpoints)
+5. ./mvnw spring-boot:run              # Testar
+6. ./mvnw test                         # Rodar testes
+7. ./mvnw package                      # Gerar .jar
+```
+
+---
+
+## Atalhos Úteis
+
+| Ação | Angular | Spring Boot |
+|------|---------|-------------|
+| Rodar | `ng serve` | `./mvnw spring-boot:run` |
+| Testar | `ng test` | `./mvnw test` |
+| Build | `ng build` | `./mvnw package` |
+| Limpar | `rm -rf node_modules && npm i` | `./mvnw clean` |
+
+---
+
+# 📝 REFERÊNCIA RÁPIDA GERAL
+
+## Comparação Angular vs Spring Boot
+
+| Conceito | Angular | Spring Boot |
+|----------|---------|-------------|
+| Componente | `@Component` | `@Controller` / `@RestController` |
+| Serviço | `@Injectable` | `@Service` |
+| Injeção | `constructor(private x: X)` | `@Autowired` / constructor |
+| Rotas | `app.routes.ts` | `@RequestMapping` |
+| Configuração | `environment.ts` | `application.properties` |
+| Testes | Jasmine/Karma | JUnit/Mockito |
+
+## Comandos Essenciais
+
+```bash
+# Angular - Desenvolvimento
+ng serve                    # Inicia servidor dev
+ng g c nome                 # Gera componente
+ng build --prod             # Build produção
+
+# Spring Boot - Desenvolvimento
+./mvnw spring-boot:run      # Inicia aplicação
+./mvnw test                 # Roda testes
+./mvnw package              # Gera JAR
+```
+
